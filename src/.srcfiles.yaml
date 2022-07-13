@@ -1,0 +1,25 @@
+# Requires ttBld.exe version 1.4.0 or higher to process -- see https://github.com/KeyWorksRW/ttBld
+
+Options:
+    Project:    ttLib_wx   # project target name
+    Exe_type:   lib        # [window | console | lib | dll]
+    Pch:        ttlib_wx.h # precompiled header
+    Optimize:   space      # [space | speed] optimization
+    Warn:       4          # [1-4]
+
+    CFlags_cmn: -std:c++17 /Zc:__cplusplus # flags to pass to the compiler in all builds
+
+    Crt_rel:    static     # [static | dll] type of CRT to link to in release builds
+    Crt_dbg:    static     # [static | dll] type of CRT to link to in debug builds
+
+    TargetDir:  ../build/CMakeFiles/CMakeTmp  # just a temporary location for the psuedo library
+
+Files:
+    ttlib_wx.cpp       # ttlib namespace functions
+    ttcstr_wx.cpp      # std::string with additional methods
+    ttsview_wx.cpp     # std::string_view with additional methods
+    ttmultistr_wx.cpp  # Breaks a single string into multiple strings or views
+    tttextfile_wx.cpp  # Classes for reading and writing text files
+    ttcvector_wx.cpp   # Vector class for storing ttlib::cstr strings
+    ttparser_wx.cpp    # Command line parser
+    ttstring_wx.cpp    # Enhanced version of wxString

@@ -1,0 +1,17 @@
+name: Verify clang-format
+
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: DoozyX/clang-format-lint-action@v0.14
+      with:
+        source: '.'
+        exclude: file
+        extensions: 'h,cpp'
+        clangFormatVersion: 14
+        style: file
