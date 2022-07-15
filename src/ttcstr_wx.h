@@ -22,7 +22,8 @@
 #include <string>
 #include <string_view>
 
-#include "ttlib_wx.h"
+#include "ttlib_wx.h"    // ttlib namespace functions and declarations
+#include "ttsview_wx.h"  // sview -- std::string_view with additional methods
 
 namespace ttlib
 {
@@ -73,7 +74,7 @@ namespace ttlib
 #endif  // _WIN32
 
         /// Caution: std::string_view will be invalid if ttlib::cstr is modified or destroyed.
-        std::string_view subview(size_t start = 0) const;
+        ttlib::sview subview(size_t start = 0) const;
 
         /// Case-insensitive comparison.
         int comparei(std::string_view str) const;
@@ -122,21 +123,21 @@ namespace ttlib
         ///
         /// A whitespace character is a space, tab, eol or form feed character.
         size_t find_space(size_t start = 0) const;
-        std::string_view view_space(size_t start = 0) const;
+        ttlib::sview view_space(size_t start = 0) const;
 
         /// Returns offset to the next non-whitespace character starting with pos. Returns npos
         /// if there are no more non-whitespace characters.
         ///
         /// A whitespace character is a space, tab, eol or form feed character.
         size_t find_nonspace(size_t start = 0) const;
-        std::string_view view_nonspace(size_t start = 0) const;
+        ttlib::sview view_nonspace(size_t start = 0) const;
 
         /// Returns an offset to the next word -- i.e., find the first non-whitedspace character
         /// after the next whitespace character.
         ///
         /// Equivalent to find_nonspace(find_space(start)).
         size_t stepover(size_t start = 0) const;
-        std::string_view view_stepover(size_t start = 0) const;
+        ttlib::sview view_stepover(size_t start = 0) const;
 
         /// Returns true if the sub-string is identical to the first part of the main string
         bool is_sameas(std::string_view str, tt::CASE checkcase = tt::CASE::exact) const;
@@ -184,7 +185,7 @@ namespace ttlib
         ///
         /// Unless chBegin is a whitespace character, all whitespace characters starting with
         /// offset will be ignored.
-        std::string_view view_substr(size_t offset, char chBegin = '"', char chEnd = '"');
+        ttlib::sview view_substr(size_t offset, char chBegin = '"', char chEnd = '"');
 
         /// Assigns the string between chBegin and chEnd. This is typically used to copy the
         /// contents of a quoted string. Returns the position of the ending character in src.
@@ -244,7 +245,7 @@ namespace ttlib
         cstr& cdecl Format(std::string_view format, ...);
 
         /// Caution: view is only valid until cstr is modified or destroyed!
-        std::string_view subview(size_t start, size_t len) const;
+        ttlib::sview subview(size_t start, size_t len) const;
 
         /// Converts all backslashes in the string to forward slashes.
         ///
@@ -273,12 +274,12 @@ namespace ttlib
         /// Returns a view to the current extension. View is empty if there is no extension.
         ///
         /// Caution: view is only valid until cstr is modified or destroyed.
-        std::string_view extension() const noexcept;
+        ttlib::sview extension() const noexcept;
 
         /// Returns a view to the current filename. View is empty if there is no filename.
         ///
         /// Caution: view is only valid until cstr is modified or destroyed.
-        std::string_view filename() const noexcept;
+        ttlib::sview filename() const noexcept;
 
         /// Returns offset to the current filename or tt::npos if there is no filename.
         size_t find_filename() const noexcept;

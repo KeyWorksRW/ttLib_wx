@@ -139,11 +139,11 @@ cstr& cstr::trim(tt::TRIM where)
  * @param chBegin -- character that prefixes the string
  * @param chEnd -- character that terminates the string.
  */
-std::string_view cstr::view_substr(size_t offset, char chBegin, char chEnd)
+ttlib::sview cstr::view_substr(size_t offset, char chBegin, char chEnd)
 {
     if (empty() || offset >= size())
     {
-        return {};
+        return ttlib::sview(ttlib::emptystring);
     }
 
     // step over any leading whitespace unless chBegin is a whitespace character
@@ -495,7 +495,7 @@ cstr& cstr::replace_extension(std::string_view newExtension)
     return *this;
 }
 
-std::string_view cstr::extension() const noexcept
+ttlib::sview cstr::extension() const noexcept
 {
     if (empty())
         return "";
@@ -514,7 +514,7 @@ std::string_view cstr::extension() const noexcept
     return { c_str() + pos, length() - pos };
 }
 
-std::string_view cstr::filename() const noexcept
+ttlib::sview cstr::filename() const noexcept
 {
     if (empty())
         return "";
@@ -747,10 +747,10 @@ std::wstring cstr::to_utf16() const
     return str16;
 }
 
-std::string_view cstr::subview(size_t start, size_t len) const
+ttlib::sview cstr::subview(size_t start, size_t len) const
 {
     if (start >= size())
-        return {};
+        return ttlib::sview(ttlib::emptystring);
 #ifdef min
     return std::string_view(c_str() + start, min(size() - start, len));
 #else
@@ -1104,7 +1104,7 @@ cstr& cdecl cstr::Format(std::string_view format, ...)
     return *this;
 }
 
-std::string_view cstr::subview(size_t start) const
+ttlib::sview cstr::subview(size_t start) const
 {
     if (static_cast<ptrdiff_t>(start) == -1)
         start = length();
@@ -1112,11 +1112,11 @@ std::string_view cstr::subview(size_t start) const
     return std::string_view(c_str() + start, length() - start);
 }
 
-std::string_view cstr::view_space(size_t start) const { return subview(find_space(start)); }
+ttlib::sview cstr::view_space(size_t start) const { return subview(find_space(start)); }
 
-std::string_view cstr::view_nonspace(size_t start) const { return subview(find_nonspace(start)); }
+ttlib::sview cstr::view_nonspace(size_t start) const { return subview(find_nonspace(start)); }
 
-std::string_view cstr::view_stepover(size_t start) const { return subview(stepover(start)); }
+ttlib::sview cstr::view_stepover(size_t start) const { return subview(stepover(start)); }
 
 /////////////////// The following section is only built when building with wxWidgets header files ///////////////////
 
