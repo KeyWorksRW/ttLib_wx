@@ -33,8 +33,8 @@ namespace ttlib
         using std_base = std::basic_string<char, std::char_traits<char>, std::allocator<char>>;
 
     public:
-        cstr(void) : std_base() {}
-        cstr(const char* psz) : std_base(psz) {}
+        cstr(void) { assign(ttlib::emptystring); }
+        cstr(const char* psz) { assign(psz); }
         cstr(std::string_view view) : std_base(view) {}
         cstr(const cstr& str) : std_base(str) {}
         cstr(const std::string& str) : std_base(str) {}
@@ -242,7 +242,7 @@ namespace ttlib
         /// with commas or periods (depending on the current locale).
         ///
         /// %z is considered unsigned unless the value is -1.
-        cstr& cdecl Format(std::string_view format, ...);
+        cstr& Format(std::string_view format, ...);
 
         /// Caution: view is only valid until cstr is modified or destroyed!
         ttlib::sview subview(size_t start, size_t len) const;
