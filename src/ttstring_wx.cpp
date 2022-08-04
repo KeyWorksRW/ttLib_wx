@@ -7,9 +7,14 @@
 
 #if defined(_WX_DEFS_H_)
 
-#include <cwchar>
-#include <cwctype>
 #include <filesystem>
+
+#if defined(_WIN32)
+    #include <cwchar>
+    #include <cwctype>
+#else
+    #include <cstring>
+#endif
 
 #include <wx/filename.h>
 
@@ -26,7 +31,7 @@ std::string ttString::sub_cstr(size_type pos, size_type count) const
 #if defined(_WIN32)
         utf16to8(wx_str(), str);
 #else
-        str = c_str();
+        str = *this;
 #endif  // _WIN32
     }
     else if (pos < size())
@@ -219,11 +224,12 @@ size_t ttString::find_oneof(std::string_view set) const
 
 #if defined(_WIN32)
     auto wset = ttlib::utf8to16(set);
+    auto found = std::wcspbrk(c_str(), wset.c_str());
 #else
     std::string wset(set);
+    auto found = std::strpbrk(c_str(), wset.c_str());
 #endif  // _WIN32
 
-    auto found = std::wcspbrk(c_str(), wset.c_str());
     if (!found)
         return npos;
     return (static_cast<size_t>(found - c_str()));

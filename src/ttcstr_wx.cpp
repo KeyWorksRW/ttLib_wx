@@ -790,7 +790,7 @@ void cstr::erase_from(std::string_view sub)
     }
 }
 
-cstr& cdecl cstr::Format(std::string_view format, ...)
+cstr& cstr::Format(std::string_view format, ...)
 {
     enum WIDTH : size_t
     {
@@ -943,8 +943,17 @@ cstr& cdecl cstr::Format(std::string_view format, ...)
                         buffer << str8;
                 }
             }
+
+            // REVIEW: [Randalphwa - 08-04-2022] This works fine through C++17, but in C++20 you can't pass a class that
+            // isn't trivially copied. MSVC through 19.32.31332 still supports it, but clang-12 does not. In clang-cl 14.0,
+            // it's a warning and is likely to fail. Bottom line is that this shouldn't be used any more. Pass a .c_str()
+            // instead.
+
             else if (format.at(pos) == 'v')
             {
+#if defined(_WIN32)
+                ASSERT_MSG(format.at(pos) == 'v', "This functionality is deprecated due to stricter C++20 requirements.")
+
                 if (width != WIDTH_LONG)
                 {
                     if (kflag)
@@ -963,6 +972,9 @@ cstr& cdecl cstr::Format(std::string_view format, ...)
                     else
                         buffer << str8;
                 }
+#else
+                ASSERT_MSG(format.at(pos) == 'v', "This functionality is not available on UNIX due to C++20 requirements.")
+#endif
             }
             else if (format.at(pos) == 'd' || format.at(pos) == 'i')
             {
@@ -1130,7 +1142,7 @@ cstr::cstr(const wxString& str)
 #ifdef _WIN32
     utf16to8(str.wx_str(), *this);
 #else
-    *this = str.c_str();
+    *this = str;
 #endif
 }
 
@@ -1140,7 +1152,7 @@ cstr& cstr::assign_wx(const wxString& str)
     clear();
     utf16to8(str.wx_str(), *this);
 #else
-    *this = str.c_str();
+    *this = str;
 #endif
     return *this;
 }
@@ -1150,7 +1162,7 @@ cstr& cstr::append_wx(const wxString& str)
 #ifdef _WIN32
     utf16to8(str.wx_str(), *this);
 #else
-    *this += str.c_str();
+    *this += str;
 #endif
     return *this;
 }
