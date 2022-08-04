@@ -790,7 +790,7 @@ void cstr::erase_from(std::string_view sub)
     }
 }
 
-cstr& cdecl cstr::Format(std::string_view format, ...)
+cstr& cstr::Format(std::string_view format, ...)
 {
     enum WIDTH : size_t
     {
@@ -1130,7 +1130,7 @@ cstr::cstr(const wxString& str)
 #ifdef _WIN32
     utf16to8(str.wx_str(), *this);
 #else
-    *this = str.c_str();
+    *this = str;
 #endif
 }
 
@@ -1140,7 +1140,7 @@ cstr& cstr::assign_wx(const wxString& str)
     clear();
     utf16to8(str.wx_str(), *this);
 #else
-    *this = str.c_str();
+    *this = str;
 #endif
     return *this;
 }
@@ -1150,7 +1150,7 @@ cstr& cstr::append_wx(const wxString& str)
 #ifdef _WIN32
     utf16to8(str.wx_str(), *this);
 #else
-    *this += str.c_str();
+    *this += str;
 #endif
     return *this;
 }
