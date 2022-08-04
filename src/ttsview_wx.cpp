@@ -369,7 +369,7 @@ bool sview::file_exists() const
 #ifdef _WIN32
     auto file = std::filesystem::directory_entry(std::filesystem::path((to_utf16())));
 #else
-    auto file = std::filesystem::directory_entry(std::filesystem::path(c_str()));
+    auto file = std::filesystem::directory_entry(std::filesystem::path(as_str()));
 #endif
     return (file.exists() && !file.is_directory());
 }
@@ -381,7 +381,7 @@ bool sview::dir_exists() const
 #ifdef _WIN32
     auto file = std::filesystem::directory_entry(std::filesystem::path(to_utf16()));
 #else
-    auto file = std::filesystem::directory_entry(std::filesystem::path(c_str()));
+    auto file = std::filesystem::directory_entry(std::filesystem::path(as_str()));
 #endif
     return (file.exists() && file.is_directory());
 }
