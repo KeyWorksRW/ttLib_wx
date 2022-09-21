@@ -13,6 +13,10 @@
     #define _TTLIB_NAMESPACE_H_GUARD_  // sanity check to confirm that #pragma once is working as expected
 #endif
 
+// This is so that callers can conditionalize their code based on whether the header has been
+// included.
+#define _TTLIB_WX_HEADER_
+
 #if !(__cplusplus >= 201703L || (defined(_MSVC_LANG) && _MSVC_LANG >= 201703L))
     #error "The contents of <ttlib_wx.h> are available only with C++17 or later."
 #endif
