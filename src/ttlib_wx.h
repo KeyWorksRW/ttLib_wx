@@ -304,7 +304,7 @@ namespace ttlib
     // This function is available in Release builds, the ttASSERT macros only call it in
     // Debug builds
     bool AssertDialog(const char* filename, const char* function, int line, const char* cond, const std::string& msg);
-#endif      // defined(_WX_DEFS_H_)
+#endif  // defined(_WX_DEFS_H_)
 
 }  // namespace ttlib
 
@@ -337,6 +337,7 @@ namespace ttlib
 #endif  // end _WIN32 section
 
 #if defined(_WX_DEFS_H_)
+    // See assertion_dlg.h for an alternative to these macros
     #if defined(NDEBUG) && !defined(INTERNAL_TESTING)
         #define ttASSERT(cond)
         #define ttASSERT_MSG(cond, msg)
