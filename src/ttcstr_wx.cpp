@@ -272,8 +272,8 @@ size_t cstr::ExtractSubString(std::string_view src, size_t start)
     else if (chBegin == '<')
         chEnd = '>';
     else if (chBegin == '[')
-        chEnd = '>';
-    else if (chBegin == ']')
+        chEnd = ']';
+    else if (chBegin == '(')
         chEnd = ')';
     else
         return npos;
