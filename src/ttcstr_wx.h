@@ -27,7 +27,10 @@
 
 namespace ttlib
 {
-    /// @brief basic_string with additional methods.
+    // std::string with additional methods.
+    //
+    // On Windows, std::wstring/wstring_view is assumed to be UTF16 and is automatically
+    // converted to UTF8 in constructors and assignments.
     class cstr : public std::basic_string<char, std::char_traits<char>, std::allocator<char>>
     {
         using std_base = std::basic_string<char, std::char_traits<char>, std::allocator<char>>;
