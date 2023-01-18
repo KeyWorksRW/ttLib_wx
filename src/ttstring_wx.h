@@ -61,7 +61,7 @@ public:
     ttString(const std::string& str) { this->assign(wxString::FromUTF8(str.data(), str.size())); }
     ttString(std::string_view str) { this->assign(wxString::FromUTF8(str.data(), str.size())); }
 #else
-    ttString(const std::string& str) { this->assign(wxString::FromUTF8(str.data(), str.size())); }
+    ttString(const std::string& str) { this->assign(str.data(), str.size()); }
     ttString(std::string_view str) { this->assign(str.data(), str.size()); }
 #endif  // _WIN32
 
