@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Purpose:   ttlib namespace functions
 // Author:    Ralph Walden
-// Copyright: Copyright (c) 2020-2022 KeyWorks Software (Ralph Walden)
+// Copyright: Copyright (c) 2020-2023 KeyWorks Software (Ralph Walden)
 // License:   Apache License -- see ../../LICENSE
 /////////////////////////////////////////////////////////////////////////////
 
@@ -411,23 +411,23 @@ bool ttlib::file_exists(std::string_view filename)
     return false;
 }
 
-ttlib::cstr ttlib::itoa(int val, bool format)
+ttlib::cstr ttlib::itoa(int value, bool format)
 {
     ttlib::cstr str;
     if (format)
-        str.Format("%kd", val);
+        str.Format("%kd", value);
     else
-        str.Format("%d", val);
+        str = std::to_string(value);
     return str;
 }
 
-ttlib::cstr ttlib::itoa(size_t val, bool format)
+ttlib::cstr ttlib::itoa(size_t value, bool format)
 {
     ttlib::cstr str;
     if (format)
-        str.Format("%kzu", val);
+        str.Format("%kzu", value);
     else
-        str.Format("%zu", val);
+        str = std::to_string(value);
     return str;
 }
 

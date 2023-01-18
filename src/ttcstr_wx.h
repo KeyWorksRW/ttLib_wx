@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Purpose:   std::string with additional methods
 // Author:    Ralph Walden
-// Copyright: Copyright (c) 2020-2022 KeyWorks Software (Ralph Walden)
+// Copyright: Copyright (c) 2020-2023 KeyWorks Software (Ralph Walden)
 // License:   Apache License -- see ../../LICENSE
 /////////////////////////////////////////////////////////////////////////////
 
@@ -342,15 +342,15 @@ namespace ttlib
             return *this;
         }
 
-        cstr& operator<<(int i)
+        cstr& operator<<(int value)
         {
-            *this += itoa(i);
+            *this += std::to_string(value);
             return *this;
         }
 
-        cstr& operator<<(size_t i)
+        cstr& operator<<(size_t value)
         {
-            *this += itoa(i);
+            *this += std::to_string(value);
             return *this;
         }
 
