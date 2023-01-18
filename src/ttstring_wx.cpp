@@ -1,11 +1,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Purpose:   Enhanced version of wxString
 // Author:    Ralph Walden
-// Copyright: Copyright (c) 2020-2022 KeyWorks Software (Ralph Walden)
+// Copyright: Copyright (c) 2020-2023 KeyWorks Software (Ralph Walden)
 // License:   Apache License -- see ../../LICENSE
 /////////////////////////////////////////////////////////////////////////////
-
-#if defined(_WX_DEFS_H_)
 
 #include <filesystem>
 
@@ -734,7 +732,7 @@ ttString& ttString::make_relative(std::string_view pathBase)
     file.MakeRelativeTo(ttlib::utf8to16(pathBase));
 #else
     file.MakeRelativeTo(std::string(pathBase));
-#endif  // _WIN32    
+#endif  // _WIN32
 
     assign(file.GetFullPath());
     return *this;
@@ -775,19 +773,25 @@ bool ttString::ChangeDir(bool is_dir) const
     return false;
 }
 
-std::string ttString::sub_find_nonspace(size_t start) const
+ttString ttString::find_file(const ttString& dir, const ttString& filename)
 {
-    return sub_cstr(find_nonspace(start));
+    auto dir_iterator = std::filesystem::recursive_directory_iterator(dir.wx_str());
+    for (auto& entry: dir_iterator)
+    {
+        if (entry.is_regular_file())
+        {
+            if (entry.path().filename() == filename.wx_str())
+            {
+                return entry.path().string();
+            }
+        }
+    }
+
+    return wxEmptyString;
 }
 
-std::string ttString::sub_find_space(size_t start) const
-{
-    return sub_cstr(find_space(start));
-}
+std::string ttString::sub_find_nonspace(size_t start) const { return sub_cstr(find_nonspace(start)); }
 
-std::string ttString::sub_stepover(size_t start) const
-{
-    return sub_cstr(stepover(start));
-}
+std::string ttString::sub_find_space(size_t start) const { return sub_cstr(find_space(start)); }
 
-#endif  // defined(_WX_DEFS_H_)
+std::string ttString::sub_stepover(size_t start) const { return sub_cstr(stepover(start)); }

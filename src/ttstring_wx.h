@@ -316,6 +316,17 @@ public:
     /// change to.
     bool ChangeDir(bool is_dir = true) const;
 
+    // This will return a full path to the file if found, or an empty string if not found.
+    //
+    // All subdirectories of the specified directory will be searched.
+    static ttString find_file(const ttString& dir, const ttString& filename);
+
+    ///////////////////// std::string functions ///////////////////////////
+    //
+    // The following functions assume the current string is a file name.
+    //
+    ////////////////////////////////////////////////////////////////////
+
     // wxString contains several functions that work the same as std::string/wstring functions.
     // The following functions are additional std::string/wstring functions that are not
     // part of wxString.
