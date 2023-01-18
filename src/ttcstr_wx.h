@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Purpose:   std::string with additional methods
 // Author:    Ralph Walden
-// Copyright: Copyright (c) 2020-2022 KeyWorks Software (Ralph Walden)
+// Copyright: Copyright (c) 2020-2023 KeyWorks Software (Ralph Walden)
 // License:   Apache License -- see ../../LICENSE
 /////////////////////////////////////////////////////////////////////////////
 
@@ -27,7 +27,10 @@
 
 namespace ttlib
 {
-    /// @brief basic_string with additional methods.
+    // std::string with additional methods.
+    //
+    // On Windows, std::wstring/wstring_view is assumed to be UTF16 and is automatically
+    // converted to UTF8 in constructors and assignments.
     class cstr : public std::basic_string<char, std::char_traits<char>, std::allocator<char>>
     {
         using std_base = std::basic_string<char, std::char_traits<char>, std::allocator<char>>;
@@ -342,15 +345,15 @@ namespace ttlib
             return *this;
         }
 
-        cstr& operator<<(int i)
+        cstr& operator<<(int value)
         {
-            *this += itoa(i);
+            *this += std::to_string(value);
             return *this;
         }
 
-        cstr& operator<<(size_t i)
+        cstr& operator<<(size_t value)
         {
-            *this += itoa(i);
+            *this += std::to_string(value);
             return *this;
         }
 
