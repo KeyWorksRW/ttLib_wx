@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Purpose:   wxString with additional methods similar to ttlib::cstr
 // Author:    Ralph Walden
-// Copyright: Copyright (c) 2020-2021 KeyWorks Software (Ralph Walden)
+// Copyright: Copyright (c) 2020-2023 KeyWorks Software (Ralph Walden)
 // License:   Apache License -- see ../LICENSE
 /////////////////////////////////////////////////////////////////////////////
 
@@ -315,6 +315,18 @@ public:
     /// If is_dir is false, current sting is assumed to contain a filename in the path to
     /// change to.
     bool ChangeDir(bool is_dir = true) const;
+
+    // wxString contains several functions that work the same as std::string/wstring functions.
+    // The following functions are additional std::string/wstring functions that are not
+    // part of wxString.
+
+    // Like std::string.back(), return is undefined if string is empty
+    auto back() { return GetChar(size() - 1); }
+
+    // Like std::string.front(), return is undefined if string is empty
+    auto front() { return GetChar(0); }
+
+    void pop_back() { RemoveLast(); }
 };
 
 /// This class saves the current working directory, and changes to that directory when the
